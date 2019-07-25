@@ -17,6 +17,11 @@ public class TrackController {
         this.trackService = trackService;
     }
 
+    @GetMapping("/")
+    public String welcome() throws Exception{
+        throw new Exception();
+    }
+
     @PostMapping("track")
     public ResponseEntity<?> saveTrack(@RequestBody Track track) {
 
