@@ -68,6 +68,13 @@ public class TrackController {
         return new ResponseEntity<>(trackService.getAllTracks(), HttpStatus.OK);
     }
 
+    @GetMapping("/search/{name}")
+    public ResponseEntity<?> getTracksByName(@PathVariable String name) {
+        System.out.println(trackService.getTrackByName(name).toString());
+        System.out.println(trackService.getTrackByNameSortByName(name).toString());
+        return new ResponseEntity<>(trackService.getAllTracks(), HttpStatus.OK);
+    }
+
     @GetMapping("/find/{id}")
     public ResponseEntity<?> getTrackById(@PathVariable int id){
         ResponseEntity responseEntity;
