@@ -1,6 +1,7 @@
 package com.example.muzixapp.controller;
 
 import com.example.muzixapp.domain.Track;
+import com.example.muzixapp.exceptions.TrackAlreadyExistsException;
 import com.example.muzixapp.service.TrackService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class TrackController {
         try {
             trackService.saveTrack(track);
             responseEntity = new ResponseEntity("Successfully Created", HttpStatus.CREATED);
-        } catch(Exception ex) {
+        } catch(TrackAlreadyExistsException ex) {
             responseEntity = new ResponseEntity<String>(ex.getMessage(), HttpStatus.CONFLICT);
         }
 

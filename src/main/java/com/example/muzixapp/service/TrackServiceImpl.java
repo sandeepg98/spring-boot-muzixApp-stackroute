@@ -1,6 +1,7 @@
 package com.example.muzixapp.service;
 
 import com.example.muzixapp.domain.Track;
+import com.example.muzixapp.exceptions.TrackAlreadyExistsException;
 import com.example.muzixapp.repository.TrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,15 @@ public class TrackServiceImpl implements TrackService{
     }
 
     @Override
-    public Track saveTrack(Track track) {
+    public Track saveTrack(Track track) throws TrackAlreadyExistsException {
+        if(trackRepository.existsById(track.getId()))
+            throw new TrackAlreadyExistsException("Track already exists");
+
         Track savedTrack = trackRepository.save(track);
+
+        if(savedTrack == null)
+            throw new TrackAlreadyExistsException("Track is null");
+
         return savedTrack;
     }
 
