@@ -12,28 +12,23 @@ Tasks:
 
 5. Create custom exceptions TrackNotFoundException, TrackAlreadyExistsException in a com.stack....exceptions package. Perform appropriate exception handling and propagation Back.
 
-6. Running Logic on Startup in Spring. Create seed data to pre-fill the database with track information whenever the application starts. Use both approaches:
-
-Approach 1: ApplicationListener<ContextRefreshedEvent>
-  
-Approach 2: CommandLineRunner (Find out how it differs from ApplicationRunner)
+6. Running Logic on Startup in Spring. Create seed data to pre-fill the database with track information whenever the              application starts. Use both approaches:
+   Approach 1: ApplicationListener<ContextRefreshedEvent>
+   Approach 2: CommandLineRunner (Find out how it differs from ApplicationRunner)
 
 7.Global exception using Controller advice
 
 8.Remove all hard coded data from the application code to application.properties
+  a)by using @Value.
+  b)by using @PropertySource
+  c)by using Environment (https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/core/env/Environment.html)
 
-a)by using @Value.
+9. Add @Lombok (https://drive.google.com/file/d/1QQpEQZbDD9pmW2qrhYsx5N9XYQ5bJ5dM/view)
 
-b)by using @PropertySource
+10. Replace h2 with MySQL
 
-c)by using Environment
-(https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/core/env/Environment.html)
+11. Use last.fm api to get data from their data corpus
 
-9) Add @Lombok
-(https://drive.google.com/file/d/1QQpEQZbDD9pmW2qrhYsx5N9XYQ5bJ5dM/view)
+12. Add Mockito Test Cases
 
-10) Replace h2 with MySQL
-
-11) Use last.fm api to get data from their data corpus
-
-12) Add Mockito Test Cases
+13. Shift the whole project from MySQL to MongoDB
