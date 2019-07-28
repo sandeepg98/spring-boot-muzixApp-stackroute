@@ -1,9 +1,11 @@
 package com.example.muzixapp.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.muzixapp.domain.Track;
 import com.example.muzixapp.exceptions.TrackAlreadyExistsException;
 import com.example.muzixapp.service.TrackService;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+
 
 @RunWith(SpringRunner.class)
 @WebMvcTest
@@ -38,23 +41,24 @@ public class TrackControllerTest {
     @InjectMocks
     private TrackController trackController;
 
-    private List<Track> list =null;
+    private List<Track> list = null;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(trackController).build();
         track = new Track();
         track.setName("Waake");
         track.setId(101);
         track.setComment("Excellent");
-        list = new ArrayList();
-
+        list = new ArrayList<>();
         list.add(track);
+
     }
 
     @Test
-    public void saveTrack() throws Exception {
+    public void saveTrack() throws Exception
+    {
         when(trackService.saveTrack(any())).thenReturn(track);
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/track")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
@@ -72,19 +76,41 @@ public class TrackControllerTest {
     }
 
     @Test
-    public void getAllTracks() throws Exception {
+    public void updateTrack() throws Exception
+    {
+        when(trackService.updateTrack(anyInt(), anyString())).thenReturn(track);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/update/10/good")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void getTrack() throws Exception
+    {
+
         when(trackService.getAllTracks()).thenReturn(list);
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/track")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
+    }
 
+    @Test
+    public void deleteTrack() throws Exception
+    {
+        when(trackService.deleteTrack(anyInt())).thenReturn(true);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/delete/10")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 
     private static String asJsonString(final Object obj) {
-        try{
+        try {
             return new ObjectMapper().writeValueAsString(obj);
-        }catch(Exception e){
+
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

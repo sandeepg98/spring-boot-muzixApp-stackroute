@@ -59,4 +59,21 @@ public class TrackRepositoryTest {
         List<Track> list = trackRepository.findAll();
         Assert.assertEquals("Photo",list.get(0).getName());
     }
+
+    @Test
+    public void testUpdateComment(){
+        trackRepository.save(track);
+        track.setComment("good");
+        trackRepository.save(track);
+        String comment = (trackRepository.findById(101).get()).getComment();
+        Assert.assertEquals("good", comment);
+    }
+
+    @Test
+    public void testUpdateCommentFailure(){
+        trackRepository.save(track);
+        track.setComment("good");
+        String comment = (trackRepository.findById(101).get()).getComment();
+        Assert.assertNotEquals("good", comment);
+    }
 }

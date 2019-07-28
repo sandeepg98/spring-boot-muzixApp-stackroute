@@ -3,7 +3,6 @@ package com.example.muzixapp.service;
 import com.example.muzixapp.domain.Track;
 import com.example.muzixapp.exceptions.TrackAlreadyExistsException;
 import com.example.muzixapp.repository.TrackRepository;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -13,6 +12,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -39,6 +39,7 @@ public class TrackServiceTest {
         track.setId(101);
         track.setComment("Excellent");
         list = new ArrayList<>();
+
         list.add(track);
     }
 
@@ -47,7 +48,7 @@ public class TrackServiceTest {
 
         when(trackRepository.save((Track) any())).thenReturn(track);
         Track savedTrack = trackService.saveTrack(track);
-        Assert.assertEquals(track,savedTrack);
+        assertEquals(track,savedTrack);
 
         //verify here verifies that trackRepository save method is only called once
         verify(trackRepository,times(1)).save(track);
@@ -68,10 +69,32 @@ public class TrackServiceTest {
     @Test
     public void getAllTracks(){
 
-        trackRepository.save(track);
+        //trackRepository.save(track);
         //stubbing the mock to return specific data
         when(trackRepository.findAll()).thenReturn(list);
         List<Track> trackslist = trackService.getAllTracks();
-        Assert.assertEquals(list,trackslist);
+        assertEquals(list,trackslist);
+    }
+
+    @Test
+    public void testDeleteTrackSuccess() {
+
+        trackRepository.delete(track);
+        boolean deletedTrack=trackRepository.existsById(101);
+        assertEquals(false,deletedTrack);
+    }
+
+    @Test
+    public void updateTrackTest() {
+
+        when(trackRepository.save((Track)any())).thenReturn(track);
+        Track updateTrack = null;
+
+        try {
+            updateTrack = trackService.saveTrack(track);
+        } catch (TrackAlreadyExistsException e) {
+            e.printStackTrace();
+        }
+        assertEquals(track,updateTrack);
     }
 }
