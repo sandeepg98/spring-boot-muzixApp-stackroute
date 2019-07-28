@@ -21,14 +21,14 @@ Tasks:
 8.Remove all hard coded data from the application code to application.properties
   a)by using @Value.
   b)by using @PropertySource
-  c)by using Environment (https://docs.spring.io/spring-framework/docs/current/javadoc-                                             api/org/springframework/core/env/Environment.html)
+  c)by using Environment (https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/core/env/Environment.html)
 
-9) Add @Lombok (https://drive.google.com/file/d/1QQpEQZbDD9pmW2qrhYsx5N9XYQ5bJ5dM/view)
+9. Add @Lombok (https://drive.google.com/file/d/1QQpEQZbDD9pmW2qrhYsx5N9XYQ5bJ5dM/view)
 
-10) Replace h2 with MySQL
+10. Replace h2 with MySQL
 
-11) Use last.fm api to get data from their data corpus
+11. Use last.fm api to get data from their data corpus
 
-12) Add Mockito Test Cases
+12. Add Mockito Test Cases
 
-13) Shift the whole project from MySQL to MongoDB
+13. Shift the whole project from MySQL to MongoDB
